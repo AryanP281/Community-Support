@@ -1,8 +1,16 @@
-/*****************Imports************** */
+/*****************Package Imports************** */
 const express = require("express")
+const dotenv = require("dotenv");
+
+/*****************User Imports************** */
+const connectDB = require("./Config/connectDB")
 
 /*****************Server Initialization************** */
 const expressApp = express();
+require('dotenv').config();
+
+//Connecting database
+connectDB()
 
 //Setting up middleware
 expressApp.use(express.json());
