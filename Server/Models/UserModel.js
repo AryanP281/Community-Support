@@ -10,9 +10,9 @@ const userSchema = new mongoose.Schema(
             default: () => new mongoose.Types.ObjectId()
         },
         email: {type: String, required: true, validate: {validator: (val) => /\w+@\D+[.]\D{2,3}/.test(val) } },
-        hashedPassword: {type: String, minlength: 60, maxlength: 60},
-        fname: {type: String, required: true, maxlength: 50},
-        lname: {type: String, required: true, maxlength: 50},
+        hashedPassword: {type: String, minlength: 60, maxlength: 60, required: true},
+        fname: {type: String, maxlength: 50},
+        lname: {type: String,  maxlength: 50},
         phone: {type: String, maxlength: 10, minlength: 10},
         collegeName: {type:String, maxlength: 50},
         profilePicUrl: String,

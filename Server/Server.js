@@ -1,5 +1,6 @@
 /*****************Imports************** */
 const express = require("express")
+require("dotenv").config();
 
 /*****************Server Initialization************** */
 const expressApp = express();
@@ -9,7 +10,10 @@ expressApp.use(express.json());
 expressApp.use(express.urlencoded({extended: false}));
 
 //Adding routes
-expressApp.use("/user", require("./Routes/UserApi").router);
+expressApp.use("/users", require("./Routes/UserApi").router);
 
 //Starting the express server
-expressApp.listen(5000, "0.0.0.0", () => console.log("Express Server started at port 5000"));
+expressApp.listen(parseInt(process.env.SERVER_PORT), "0.0.0.0", () => console.log(`Express Server started at port ${process.env.SERVER_PORT}`));
+
+//Running config
+require("./Config/Config");
