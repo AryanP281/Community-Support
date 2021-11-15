@@ -24,6 +24,10 @@ const houseModel = new mongoose.Schema(
         rent: {
             Type: String
         },
+        isOccupied: {
+          type: Boolean,
+          default: false
+        },
         description: {
             Type: String
         },
@@ -48,4 +52,4 @@ const houseModel = new mongoose.Schema(
 );
 
 /*******************Imports******************/
-module.exports.houseModel = mongoose.model("House", houseModel);
+module.exports = mongoose.model("House", houseModel);
