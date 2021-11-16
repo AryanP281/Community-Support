@@ -25,7 +25,7 @@ expressApp.get("/", (req,res)=> {
 })
 
 //Starting the express server
-expressApp.listen(parseInt(process.env.SERVER_PORT), "0.0.0.0", () => console.log(`Express Server started at port ${process.env.SERVER_PORT}`));
+expressApp.listen(parseInt(process.env.PORT), "0.0.0.0", () => console.log(`Express Server started at port ${process.env.PORT}`));
 
 //Running config
 require("./Config/Config");
