@@ -5,10 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@types/mongoose": "^5.11.97",
-<<<<<<< HEAD
     "bcrypt": "^5.0.1",
-=======
->>>>>>> 83d32227840cbbc1ff79ca7ab0aa238c0ea802dd
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "firebase": "^9.4.1",
