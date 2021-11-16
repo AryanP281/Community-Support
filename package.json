@@ -22,7 +22,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch ./**/*.js --exec node ./Server/Server.js"
+    "dev": "nodemon --watch ./**/*.js --exec node ./Server/Server.js",
+    "start": "node ./Server/Server.js"
   },
   "author": "",
   "license": "ISC"
