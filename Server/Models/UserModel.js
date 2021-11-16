@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
         lname: {type: String,  maxlength: 50, default: ""},
         phone: {type: String, maxlength: 10, default: ""},
         collegeName: {type:String, maxlength: 50, default: ""},
-        profilePicUrl: {type: string, default: ""},
+        profilePicUrl: {type: String, default: ""},
         bdate: {type: String, validate: {validator: (val) => val.length === 0 || /\d{2}[/]\d{2}[/]\d{4}/.test(val) }, default: "" },
         interests: {type:String, maxlength: 50, default: ""}
     },
