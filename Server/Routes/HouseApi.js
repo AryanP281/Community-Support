@@ -7,8 +7,12 @@ const {
     getAllHouses,
     createHouse,
     updateHouse,
-    deleteHouse
+    deleteHouse,
+    addRoomImages,
+    deleteRoomImages
 }  = require("../Controllers/HouseController")
+
+const verifyUserToken = require("../Services/Middleware").verifyUserToken;
 
 /********************Routes******************/
 // 1. Get all rooms
@@ -20,6 +24,8 @@ router.get("/getAllHouses",getAllHouses)
 router.post("/createHouse",createHouse)
 router.post("/updateHouse/:id",updateHouse)
 router.get("/deleteHouse/:id",deleteHouse)
+router.put("/house/addimages", require("../Config/Config").multerUploader.array("roomImgs", 3), addRoomImages)
+router.delete("/house/deleteimages", deleteRoomImages);
 
 /*******************Exports******************/
 module.exports.router = router;

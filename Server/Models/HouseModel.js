@@ -1,5 +1,6 @@
 
 /*******************Imports******************/
+const { ObjectId } = require("bson");
 const mongoose = require("mongoose")
 
 /********************Schemas******************/
@@ -10,10 +11,7 @@ const houseModel = new mongoose.Schema(
             default: () => new mongoose.Types.ObjectId()
         },
         photos: {
-            type: [ {
-                    type: String
-                }
-            ]
+            type: [[String]]
         },
         address: {
             type: String
@@ -47,7 +45,7 @@ const houseModel = new mongoose.Schema(
         }
     },
     {
-        collection: "House"
+        collection: "Houses"
     }
 );
 

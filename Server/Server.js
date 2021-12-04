@@ -10,7 +10,8 @@ const expressApp = express();
 require('dotenv').config();
 
 //Connecting database
-connectDB()
+if(!process.env.DEBUGGING)
+    connectDB();
 
 //Setting up middleware
 expressApp.use(express.json());
