@@ -12,7 +12,8 @@ const responseCodes = {
     userNotFound: 3,
     incorrectPassword: 4,
     houseNotFound: 5,
-    houseImgLimitReached: 6
+    houseImgLimitReached: 6,
+    doNotHavePermission: 7
 }; //The response codes to be used
 
 const dbUrl = "localhost:27017"; //The mongo db url

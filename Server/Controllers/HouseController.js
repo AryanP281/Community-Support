@@ -27,6 +27,7 @@ const createHouse = async (req,res)=> {
     try {
         const data = req.body;
         const house = new House({
+            ownerId: new ObjectId(req.body.user.userId),
             photos: [],
             address: data.address,
             location: data.location,
@@ -49,8 +50,14 @@ const createHouse = async (req,res)=> {
 }
 
 const updateHouse = async(req,res)=> {
-    try {
+    try {    
         const {id} = req.params
+        if(!checkUserRights(id, req.body.user.userId))
+        {
+            resp.status(200).json({success: false, code: respCode.doNotHavePermission});
+            return;
+        }
+        
         const dataToUpdate = req.body;
         const updatedData = await House.findByIdAndUpdate(
             id,
@@ -72,6 +79,12 @@ const updateHouse = async(req,res)=> {
 const deleteHouse = async(req,res)=> {
     try {
         const {id} = req.params;
+        if(!checkUserRights(id, req.body.user.userId))
+        {
+            resp.status(200).json({success: false, code: respCode.doNotHavePermission});
+            return;
+        }
+
         const deletedDoc = await House.findByIdAndDelete(id)
         return res.status(200).json({
             success: true,
@@ -95,6 +108,12 @@ async function addRoomImages(req, resp)
 
     try
     {
+        if(!checkUserRights(req.body.roomId, req.body.user.userId))
+        {
+            resp.status(200).json({success: false, code: respCode.doNotHavePermission});
+            return;
+        }
+        
         const imgs = req.files; //Getting the image files to upload
 
         //Getting room document
@@ -146,6 +165,12 @@ async function deleteRoomImages(req, resp)
 
     try
     {
+        if(!checkUserRights(req.body.roomId, req.body.user.userId))
+        {
+            resp.status(200).json({success: false, code: respCode.doNotHavePermission});
+            return;
+        }
+        
         //Getting room document
         const roomDetails = await House.findOne({_id: imgDetails.roomId});
         if(!roomDetails)
@@ -192,6 +217,15 @@ async function uploadRoomImages(imgName, fileBuffer)
     }
 }
 
+/********************Functions******************** */
+async function checkUserRights(roomId, userId)
+{
+    /*Checks if the given user has the right to update the room details*/
+
+    return userId === (await House.findOne({_id: new ObjectId(roomId)})).ownerId.toString();
+}
+
+/*******************Exports************************ */
 module.exports = {
     getAllHouses,
     createHouse,

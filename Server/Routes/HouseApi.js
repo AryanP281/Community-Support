@@ -20,12 +20,12 @@ const verifyUserToken = require("../Services/Middleware").verifyUserToken;
 // 3. Update a room
 // 4. Delete a room
 
-router.get("/getAllHouses",getAllHouses)
-router.post("/createHouse",createHouse)
-router.post("/updateHouse/:id",updateHouse)
-router.get("/deleteHouse/:id",deleteHouse)
-router.put("/house/addimages", require("../Config/Config").multerUploader.array("roomImgs", 3), addRoomImages)
-router.delete("/house/deleteimages", deleteRoomImages);
+router.get("/getAllHouses",verifyUserToken,getAllHouses)
+router.post("/createHouse",verifyUserToken,createHouse)
+router.post("/updateHouse/:id",verifyUserToken,updateHouse)
+router.get("/deleteHouse/:id",verifyUserToken,deleteHouse)
+router.put("/house/addimages", verifyUserToken, require("../Config/Config").multerUploader.array("roomImgs", 3), addRoomImages)
+router.delete("/house/deleteimages", verifyUserToken, deleteRoomImages);
 
 /*******************Exports******************/
 module.exports.router = router;

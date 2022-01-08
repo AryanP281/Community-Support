@@ -10,6 +10,7 @@ const houseModel = new mongoose.Schema(
             type: String,
             default: () => new mongoose.Types.ObjectId()
         },
+        ownerId: {type: ObjectId},
         photos: {
             type: [[String]]
         },
