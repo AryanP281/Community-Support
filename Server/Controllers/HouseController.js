@@ -1,4 +1,5 @@
 const House = require("../Models/HouseModel")
+const User = require("../Models/UserModel").userModel
 const respCode = require("../Config/Config").responseCodes;
 const firebaseStorage = require("../Config/FirebaseConfig").firebaseStorage;
 const firebaseRef = require("firebase/storage").ref;
@@ -10,7 +11,12 @@ const roomImgLimit = 3; //The max number of images that can be uploaded for a ro
 
 const getAllHouses = async (req,res)=> {
     try {
-        const houses = await House.find({});
+        const houses = await House.find({}).lean();
+        for(let i = 0; i < houses.length; ++i)
+        {
+            houses[i].owner = await User.findOne({_id: houses[i].ownerId}, {_id:false});
+            delete houses[i].ownerId;
+        }
         return res.status(200).json({
             success: true,
             data: houses

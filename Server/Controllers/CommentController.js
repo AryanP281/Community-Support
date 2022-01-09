@@ -48,7 +48,7 @@ async function getComments(req, resp)
         const lastTimestamp = (await commentModel.findOne({_id: new ObjectId(req.query.lastId)})).createdAt;
         
         //Getting the next comments page
-        const nextPage = (await commentModel.find({createdAt: {$gt: lastTimestamp}}, {__v:false},{sort: {"createdAt":1}, limit: commentPageSize}));
+        const nextPage = await commentModel.find({createdAt: {$gt: lastTimestamp}}, {__v:false},{sort: {"createdAt":1}, limit: commentPageSize}).lean();
         
         //Getting the comment creator name
         for(let i = 0; i < nextPage.length; ++i)
