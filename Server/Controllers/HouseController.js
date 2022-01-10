@@ -6,6 +6,7 @@ const firebaseRef = require("firebase/storage").ref;
 const deleteObject = require("firebase/storage").deleteObject;
 const uploadBytes = require("firebase/storage").uploadBytes;
 const getDownloadUrl = require("firebase/storage").getDownloadURL;
+const { ObjectId } = require("bson");
 
 const roomImgLimit = 3; //The max number of images that can be uploaded for a room
 
