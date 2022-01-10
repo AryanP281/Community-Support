@@ -24,7 +24,7 @@ router.get("/getAllHouses",verifyUserToken,getAllHouses)
 router.post("/createHouse",verifyUserToken,createHouse)
 router.post("/updateHouse/:id",verifyUserToken,updateHouse)
 router.get("/deleteHouse/:id",verifyUserToken,deleteHouse)
-router.put("/house/addimages", verifyUserToken, require("../Config/Config").multerUploader.array("roomImgs", 3), addRoomImages)
+router.put("/house/addimages", require("../Config/Config").multerUploader.array("roomImgs", 3), verifyUserToken, addRoomImages)
 router.delete("/house/deleteimages", verifyUserToken, deleteRoomImages);
 
 /*******************Exports******************/
