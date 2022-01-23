@@ -41,7 +41,8 @@ const createHouse = async (req,res)=> {
             rent: data.rent,
             description: data.description,
             noOfBedrooms: data.noOfBedrooms,
-            features: data.features
+            features: data.features,
+            onlyVeg: data.onlyVeg
         })
         await house.save();
         return res.status(200).json({

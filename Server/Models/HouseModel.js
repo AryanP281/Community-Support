@@ -30,6 +30,7 @@ const houseModel = new mongoose.Schema(
         description: {
             Type: String
         },
+        onlyVeg : {type: Boolean, default: false},
         noOfBedrooms: {
             type: Number
         },
