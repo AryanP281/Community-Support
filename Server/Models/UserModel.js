@@ -18,27 +18,25 @@ const userSchema = new mongoose.Schema(
         profilePicUrl: {type: String, default: ""},
         bdate: {type: String, validate: {validator: (val) => val.length === 0 || /\d{2}[/]\d{2}[/]\d{4}/.test(val) }, default: "" },
         interests: {type:String, maxlength: 50, default: ""},
-        info: {
-            stream: {
-                type: Number,
-                default: 0,
-            },
-            dietery: {
-                type: Number,
-                default: 0,
-            },
-            hobby: {
-                type: Number,
-                default: 0,
-            },
-            gender: {
-                type: Number,
-                default: 0,
-            },
-            budget: {
-                type: Number,
-                default: 0,
-            }
+        stream: {
+            type: Number,
+            default: 0,
+        },
+        dietery: {
+            type: Number,
+            default: 0,
+        },
+        hobby: {
+            type: Number,
+            default: 0,
+        },
+        gender: {
+            type: Number,
+            default: 0,
+        },
+        budget: {
+            type: Number,
+            default: 0,
         }
     },
     {
