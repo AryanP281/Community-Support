@@ -113,6 +113,30 @@ async function getUserProfile(req, resp)
     }
 }
 
+async function findSimilarUsers(req, resp) {
+  try {
+    //Getting the user id
+    const userId = req.body.user.userId;
+
+    //Getting the user profile details
+    const userProfile = (
+      await userModel.find({ _id: userId }, "-_id -__v -hashedPassword")
+    )[0];
+    if (!userProfile) {
+      resp.status(200).json({ success: false, code: respCodes.userNotFound });
+      return;
+    }
+    const allUsers = await userModel.find({});
+
+    
+
+    resp.status(200).json({ success: true, userProfile, all: allUsers });
+  } catch (err) {
+    console.log(err);
+    resp.sendStatus(500);
+  }
+}
+
 async function editUserProfile(req, resp)
 {
     try
@@ -177,3 +201,4 @@ module.exports.createUserAccount = createUserAccount;
 module.exports.getUserProfile = getUserProfile;
 module.exports.authenticateUser = authenticateUser;
 module.exports.editUserProfile = editUserProfile;
+module.exports.findSimilarUsers = findSimilarUsers;
