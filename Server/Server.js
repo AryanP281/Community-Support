@@ -10,7 +10,8 @@ const expressApp = express();
 require('dotenv').config();
 
 //Connecting database
-connectDB()
+if(!process.env.DEBUGGING)
+    connectDB();
 
 //Setting up middleware
 expressApp.use(express.json());
@@ -19,6 +20,7 @@ expressApp.use(express.urlencoded({extended: false}));
 //Adding routes
 expressApp.use("/users", require("./Routes/UserApi").router);
 expressApp.use("/house", require("./Routes/HouseApi").router);
+expressApp.use("/comment",require("./Routes/CommentApi").router);
 
 expressApp.get("/", (req,res)=> {
     return res.status(200).send("Welcome to Community Support")
