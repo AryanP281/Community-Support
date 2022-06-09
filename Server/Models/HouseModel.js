@@ -1,5 +1,6 @@
 
 /*******************Imports******************/
+const { ObjectId } = require("bson");
 const mongoose = require("mongoose")
 
 /********************Schemas******************/
@@ -9,11 +10,9 @@ const houseModel = new mongoose.Schema(
             type: String,
             default: () => new mongoose.Types.ObjectId()
         },
+        ownerId: {type: ObjectId},
         photos: {
-            type: [ {
-                    type: String
-                }
-            ]
+            type: [[String]]
         },
         address: {
             type: String
@@ -31,6 +30,7 @@ const houseModel = new mongoose.Schema(
         description: {
             Type: String
         },
+        onlyVeg : {type: Boolean, default: false},
         noOfBedrooms: {
             type: Number
         },
@@ -47,7 +47,7 @@ const houseModel = new mongoose.Schema(
         }
     },
     {
-        collection: "House"
+        collection: "Houses"
     }
 );
 
