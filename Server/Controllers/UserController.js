@@ -113,6 +113,61 @@ async function getUserProfile(req, resp)
     }
 }
 
+let referenceObj;
+
+function euclideanFinder(a) {
+  let diff =
+    (referenceObj.stream - a.stream) * (referenceObj.stream - a.stream) +
+    (referenceObj.dietery - a.dietery) * (referenceObj.dietery - a.dietery) +
+    (referenceObj.hobby - a.hobby) * (referenceObj.hobby - a.hobby) +
+    (referenceObj.gender - a.gender) * (referenceObj.gender - a.gender) +
+    (referenceObj.budget - a.budget) * (referenceObj.budget - a.budget);
+  return Math.sqrt(diff);
+}
+
+function arrayComparator(a, b) {
+  const dist_a = euclideanFinder(a);
+  const dist_b = euclideanFinder(b);
+  if (dist_a < dist_b) return -1;
+  else if (dist_a > dist_b) return 1;
+  return 0;
+}
+
+async function findSimilarUsers(req, resp) {
+  try {
+    //Getting the user id
+    const userId = req.body.user.userId;
+
+    //Getting the user profile details
+    const userProfile = (
+      await userModel.find({ _id: userId }, "-_id -__v -hashedPassword")
+    )[0];
+    if (!userProfile) {
+      resp.status(200).json({ success: false, code: respCodes.userNotFound });
+      return;
+    }
+    const allUsers = await userModel.find({ _id: { $ne: userId } });
+    referenceObj = userProfile;
+
+    // allUsers.map((each)=>{
+    //     console.log(each.email)
+    // })
+
+    // console.log("******************************")
+
+    allUsers.sort(arrayComparator);
+
+    // allUsers.map((each)=>{
+    //     console.log(each.email)
+    // })
+
+    resp.status(200).json({ success: true, recommendations: allUsers });
+  } catch (err) {
+    console.log(err);
+    resp.sendStatus(500);
+  }
+}
+
 async function editUserProfile(req, resp)
 {
     try
@@ -177,3 +232,4 @@ module.exports.createUserAccount = createUserAccount;
 module.exports.getUserProfile = getUserProfile;
 module.exports.authenticateUser = authenticateUser;
 module.exports.editUserProfile = editUserProfile;
+module.exports.findSimilarUsers = findSimilarUsers;
