@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   console.log("In Connect DB fnct");
   try {
-    const url = `mongodb+srv://adnanahmed:cspass@cluster0.zpkqq.mongodb.net/myFirstDatabase?authSource=admin&replicaSet=atlas-u63gi2-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true`;
+    const url = `mongodb+srv://adnanahmed:${process.env.MONGODB_PASS}@cluster0.zpkqq.mongodb.net/myFirstDatabase?authSource=admin&replicaSet=atlas-u63gi2-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true`;
 
     mongoose
       .connect(url, {
